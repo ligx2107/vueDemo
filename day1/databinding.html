@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Binding</title>
+    <script src="../js/vue.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="root">
+        <!--
+            单项绑定v-bind:value可简写为:value
+            双向绑定v-model:value可简写为v-model，v-model默认收集value值
+        -->
+        单项数据绑定(v-bind): <input type="text" v-bind:value="name"> <br/><br/>
+        双向数据绑定(v-model): <input type="text" v-model:value="name">
+
+        <script type="text/javascript">
+            new Vue({ 
+                el:'#root',
+                // data属性的第一种写法，为一个对象
+                // data: {
+                //     name:'Tom'
+                // }
+    
+                // data的第二种写法，为一个普通函数，不能为箭头函数(this指向错误)
+                data(){
+                    return {
+                        name:'Tom'
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

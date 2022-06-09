@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Demo</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        1. <div id='root'>是一个容器，其内部写的是vue的模版代码，类似于React的jsx，是html+js的混合体
+        2. {{xxx}}标签会自动读取创建Vue实例的配置对象中，data属性的指定子属性，xxx当成表达式去解析
+    -->
+    <div id="root">
+        <h1>Hello, {{info.name}}</h1>
+        <h1>age: {{info.age}}</h1>
+    </div>
+
+    <script type="text/javascript">
+        // 创建一个vue实例，并传入配置对象
+        new Vue({
+            el:'#root', // el用于指定当前vue实例所作用的容器对象，其值为选择器字符串，类似jQuery
+            data:{ // data为vue实例作用的容器提供数据，值为对象形式
+                info:{
+                    name:'Vue',
+                    age:16
+                }
+            }
+        });
+    </script>
+</body>
+</html>
