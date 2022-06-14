@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prototype</title>
+    <script type="text/javascript">
+        /**
+         * 关于prototype的说明：
+         * 1. 每个函数都有一个prototype属性，默认指向一个Object的空对象(即: 原型对象)
+         * 2. 原型对象中的constructor属性，指向函数对象，即：函数与函数的原型对象会形成循环引用
+         * 3. 函数的所有实例对象自动拥有函数原型对象中的属性和方法
+         * 
+         * 显式原型与隐式原型：
+         * 1. 每个函数都有一个prototype，即显式原型，在函数定义时自动添加
+         * 2. 每个实例对象都有一个__proto__，即隐式原型，在创建实例时自动添加
+         * 3. 实例对象的隐式原型属性值为其对应的构造函数的显式原型属性值
+         * */
+
+        // 定义构造函数
+        function Fn(){
+
+        }
+
+        // 打印显式原型属性值
+        console.log(Fn.prototype);
+
+        // 创建实例对象并打印隐式原型属性值
+        const fn = new Fn();
+        console.log(fn.__proto__);
+
+        // 判断构造函数显式原型值与实例对象隐式原型值是否相等
+        console.log(Fn.prototype === fn.__proto__); //true
+
+        // 原型值的constructor属性，指向函数对象
+        console.log(fn.__proto__.constructor === Fn); //true
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
