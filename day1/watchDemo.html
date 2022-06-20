@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Demo</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        属性监视器watch:
+            1. 监视器的两种写法：
+                (1). new Vue时传入的watch对象配制, watch:{}
+                (2). Vue实例的$watch()方法
+            2. 监视器回调的两种写法：
+                (1). 与被监视属性同名的函数，如：lastName监听方法
+                (2). 与被监视属性同名的对象, 如：firstName监听方法
+            3. 监视器回调时机：被监视属性发生变化时，回调函数自动调用
+            4. watch监听与computed计算属性区别：
+                (1). computed能实现的，watch都可以实现
+                (2). watch能实现的，computed不一定能实现，如：watch可以实现异步操作，而computed不可以
+            
+        注：所有被Vue管理的函数，都不能写成箭头函数；所有不是被Vue管理的函数，都要写成箭头函数.
+    -->
+    <div id="root">
+        姓: <input type="text" v-model="firstName"><br>
+        名: <input type="text" v-model="lastName"><br>
+        全名: {{fullName}}
+    </div>
+    <script type="text/javascript">
+        const vm = new Vue({
+            el:'#root',
+            data(){
+                return {
+                    firstName: 'Michael',
+                    lastName: 'Jordan',
+                    fullName: ''
+                }
+            },
+            // 使用watch监测属性, watch本身为对象形式
+            watch:{
+                // 简写形式
+                // firstName(newValue, oldValue){
+                //     this.fullName = newValue + '-' + this.lastName
+                // },
+
+                // 完整形式
+                firstName:{
+                    immediate:true, // 若immediate属性为true，则handler方法在初始化时会被调用一次，之后当被监测属性发生变化时再被调用
+                    handler(newValue, oldValue){
+                        this.fullName = newValue + '-' + this.lastName
+                    }
+                },
+
+                // 监测lastName属性变化
+                lastName(newValue, oldValue){
+                    this.fullName = this.firstName + '-' + newValue
+                }
+            }
+        });
+
+        // watch机制的第二种写法，调用Vue实例的$watch方法实现, 调用优先级高于创建Vue实例时传入的config配置
+        // vm.$watch('lastName', {
+        //     handler(newValue, oldValue){
+        //         console.log(1111);
+        //         this.fullName = this.firstName + '-' + newValue
+        //     }
+        // });
+    </script>
+</body>
+</html>

@@ -8,6 +8,11 @@
     <script src="../js/vue.js"></script>
 </head>
 <body>
+    <!-- 
+        计算属性：要显示的数据不直接存在，需要通过计算得来
+        执行时机：1. 初次显示时会执行一次，得到初始值；2. 当计算属性所依赖的其他数据发生变化时，会被再次调用
+        优势：与methods相比，计算属性内部有缓存机制，效率更高
+     -->
     <div id="root">
         姓: <input type="text" v-model="firstName"> <br>
         名: <input type="text" v-model="lastName"> <br>
