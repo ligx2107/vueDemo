@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditional Render</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        条件渲染：
+            1. v-show: 通过样式隐藏不展示的DOM节点，适用于切换频率很高的场景，
+            2. v-if(v-else-if v-else): 直接移除掉不展示的DOM节点，适用于切换频率很低的场景
+    -->
+    <div id="root">
+        <h2>你很{{pretty ? '漂亮' : '丑陋'}}</h2>
+        <h2 v-show="pretty">美美的</h2>
+        <h2 v-if="!pretty">丑丑的</h2>
+        <button @click="pretty = !pretty">点我切换</button>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data(){
+                return {
+                    pretty: true
+                }
+            }
+        });
+    </script>
+</body>
+</html>
