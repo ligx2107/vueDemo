@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic List</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        v-for指令：
+            1. 用于展示列表数据
+            2. 可遍历数组(v-for="(item,index) in arr")、对象(v-for="(value, key) in obj")、字符串(v-for="(character, index) in str")
+    -->
+    <div id="root">
+        <!-- v-for遍历数组 -->
+        <h2>人员列表数据</h2>
+        <ul>
+            <li v-for="(p, index) in persons" :key="p.id">姓名：{{p.name}}, 年龄：{{p.age}}</li>
+        </ul>
+
+        <!-- v-for遍历对象 -->
+        <h2>车辆信息</h2>
+        <ul>
+            <li v-for="(value, name) in car" :key="name">{{value}}</li>
+        </ul>
+
+        <!-- v-for遍历字符串 -->
+        <h2>字符串中字符列表</h2>
+        <ul>
+            <li v-for="(character, index) in str" :key="index">{{character}}</li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data:{
+                persons:[
+                    {
+                        id:1, name: 'Tom', age:18
+                    },
+                    {
+                        id:2, name: 'Kate', age:19
+                    },
+                    {
+                        id:3, name: 'Lilei', age:17
+                    }
+                ],
+                car:{
+                    color: 'red',
+                    price: 500000,
+                    brand: 'benz'
+                },
+                str: "abcde"
+            }
+        });
+    </script>
+</body>
+</html>
