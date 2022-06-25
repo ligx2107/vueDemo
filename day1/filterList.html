@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter List</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>人员列表</h2>
+        <input type="text" placeholder="输入姓名" v-model="searchInfo">
+        <ul>
+            <li v-for="(p, index) in filtedPersons" :key="p.id">
+                {{p.name}} -- {{p.age}}岁
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#root',
+            data:{
+                searchInfo:'',
+                persons:[
+                    {
+                       
+                        id:1, name: 'Tom', age:18
+                    },
+                    {
+                        id:2, name: 'Kate', age:19
+                    },
+                    {
+                        id:3, name: 'Lilei', age:17
+                    }
+                ]
+            },
+
+            // 通过计算属性，实现输入条件对列表的过滤
+            computed:{
+                filtedPersons(){
+                    // 解构获取原始数据列表及查询输入信息
+                    const {persons, searchInfo} = this;
+
+                    return persons.filter(p => p.name.indexOf(searchInfo) !== -1)
+                }
+            }
+        });
+    </script>
+</body>
+</html>
