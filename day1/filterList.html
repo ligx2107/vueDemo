@@ -11,6 +11,10 @@
     <div id="root">
         <h2>人员列表</h2>
         <input type="text" placeholder="输入姓名" v-model="searchInfo">
+        <button @click="sortType = 1">年龄升序</button>
+        <button @click="sortType = 2">年龄降序</button>
+        <button @click="sortType = 0">原顺序</button>
+        <button @click="updateTom">修改Tom的信心</button>
         <ul>
             <li v-for="(p, index) in filtedPersons" :key="p.id">
                 {{p.name}} -- {{p.age}}岁
@@ -33,17 +37,41 @@
                     },
                     {
                         id:3, name: 'Lilei', age:17
+                    },
+                    {
+                        id:4, name: 'Keley', age:16
                     }
-                ]
+                ],
+                sortType: 0  // sortType为0 --> 原顺序, 1 --> 年龄升序, 2 --> 年龄降序
+            },
+
+            methods:{
+                updateTom(){
+                    // Vue未实现对数组内的每个元素进行监听，直接修改数组元素后，需调用Vue包装的数组操作方法，实现页面刷新
+                    this.persons[0] = {id:1, name:'Tom2', age:28};
+                    this.persons.push();
+                }
             },
 
             // 通过计算属性，实现输入条件对列表的过滤
             computed:{
                 filtedPersons(){
-                    // 解构获取原始数据列表及查询输入信息
-                    const {persons, searchInfo} = this;
+                    // 解构获取原始数据列表、查询输入及排序方式信息
+                    const {persons, searchInfo, sortType} = this;
+                    let personArr = persons.filter(p => p.name.indexOf(searchInfo) !== -1)
+                    
+                    // 利用sort进行排序
+                    if(sortType){
+                        personArr.sort((p1, p2) => {
+                            if(sortType == 1){
+                                return p1.age - p2.age;
+                            }else{
+                                return p2.age - p1.age;
+                            }
+                        });
+                    }
 
-                    return persons.filter(p => p.name.indexOf(searchInfo) !== -1)
+                    return personArr;
                 }
             }
         });

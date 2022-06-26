@@ -12,6 +12,11 @@
         <!--
             单项绑定v-bind:value可简写为:value
             双向绑定v-model:value可简写为v-model，v-model默认收集value值
+
+            Vue数据绑定的原理：
+                1. Vue会监听data中所有层级对象的属性
+                2. 对象中的属性数据，通过为属性设定的set方法来实现数据变化监听
+                3. 数组中的数据也实现了监听，Vue重写了一系列更新数组元素的方法，当方法被调用时，除了调用对应的原生方法对数组数据进行处理，同时会更新页面
         -->
         单项数据绑定(v-bind): <input type="text" v-bind:value="name"> <br/><br/>
         双向数据绑定(v-model): <input type="text" v-model:value="name">
