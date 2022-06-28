@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Cycle</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        Vue生命周期图示说明：(红色为函数， 绿色为阶段)
+        1. Vue挂载流程：
+            Init Events & Lifecycle阶段: 初始化：生命周期钩子函数、事件，数据代理还未开始
+            beforeCreate(beforeInit)钩子函数：此钩子函数中，无法通过Vue实例访问到data中的数据、methods中的方法
+            Init injections & reactivity阶段：完成数据代理
+            created钩子函数：此钩子中，可以通过Vue实例访问data中的数据、methods中的方法
+            beforeMount钩子调用前阶段：此阶段Vue开始解析模版，生成VDOM放入内存，但并没有挂载到页面，页面还无法显示解析好的内容
+            beforeMount钩子：此钩子中，所有对DOM节点的操作最终都不奏效，无法获得解析后的DOM(还没有挂载)
+            create vm.$el and replace 'el' with it阶段：将内存中已经编译好的VDOM转为真实DOM，替换掉页面指定容器中的内容
+            mounted钩子函数：此钩子中，可以操作DOM节点，此时组件已经脱离了初始化阶段，进入了运行阶段，一般在此阶段开启定时器、发送网络请求等准备性工作
+
+        2. Vue更新流程：
+            beforeUpdate钩子函数：在此钩子中，数据是新的，但页面是旧的，即：页面尚未和数据同步
+            VDOM re-render and patch阶段：根据data中最新数据，生成新的VDOM，随后进行新旧VDOM的比较，最终更新页面的真实DOM，完成了 Model ==> View 的更新
+            updated钩子函数：此钩子中，数据是新的，页面也是新的，即：数据和页面完成了同步
+
+        3. Vue销毁流程：
+            beforeDestroy钩子函数：此钩子中，Vue实例所有的data、method、指令等都处于可用状态，马上要执行销毁过程，一般在此钩子中关闭定时器、取消订阅消息等收尾工作
+            teardown watchers, child components and event listeners阶段：移除数据监听及子组件的事件监听，本身的事件监听并不移除
+     -->
+    <div id="root">
+        <h2 id="sum">求和为：{{sum}}</h2>
+        <button @click="add">点我+1</button>
+        <button @click="destroy">销毁</button>
+    </div>
+
+    <script type="text/javascript">
+        // 通过Vue的全局配置，关闭启动时生产提示信息
+        Vue.config.productionTip = false;
+
+        new Vue({
+            el: '#root',
+            data:{
+                sum: 0
+            },
+            methods: {
+                add(){
+                    this.sum += 1;
+                },
+                destroy(){
+                    this.$destroy();
+                }
+            },
+            // Vue实例初始化前
+            beforeCreate(){
+                console.log('beforeCreate called ...');
+                //console.log(this.sum); //undefined
+            },
+            // Vue实例初始化完毕
+            created() {
+                console.log('created called ...');
+                console.log(this.sum);
+            },
+            // Vue实例更新真实DOM之前(挂载前)
+            beforeMount() {
+                console.log('beforeMount called ...');
+            },
+            // Vue实例更新完真实DOM(挂载后)
+            mounted() {
+                console.log('mounted called ...');
+                console.log(document.getElementById('sum').innerHTML); // 此时拿到的是Vue实例渲染后的页面元素信息
+            },
+            // Vue实例将要更新页面
+            beforeUpdate() {
+                console.log('beforeUpdate called ...');
+                console.log(`sum value: ${this.sum}`); // Vue实例上的数据为最新的
+                console.log(`sum on page: ${document.getElementById('sum').innerHTML}`); // 页面上展示的数据依然为旧值
+            },
+            // Vue实例更新完页面
+            updated() {
+                console.log('updated called ...');
+            },
+            // Vue将要销毁
+            beforeDestroy() {
+                console.log('beforeDestroy called ...');
+                console.log(this.sum); // 在销毁前，data中的数据依然可用
+            },
+            // Vue完成销毁
+            destroyed() {
+                console.log('destroyed called ...');
+            },
+        });
+    </script>
+</body>
+</html>
