@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2>当前日期：</h2>
+        <!-- 模版中调用全局过滤器，无参 -->
+        <h3>{{time | dataFormater}}</h3>
+        <!-- 模版中调用全局过滤器，给出具体日期格式 -->
+        <h3>{{time | dataFormater('YYYY-MM-DD HH:mm:ss')}}</h3>
+    </div>
+
+    <script type="text/javascript">
+        // 声明全局过滤器
+        Vue.filter('dataFormater', function(value, str='YYYY-MM-DD'){
+            // 调用moment.js进行日期格式化
+            return moment(value).format(str)
+        })
+
+        // 创建Vue实例对象
+        new Vue({
+            el: '#root',
+            data:{
+                time: Date.now()
+            }
+        });
+    </script>
+</body>
+</html>
