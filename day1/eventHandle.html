@@ -18,7 +18,7 @@
         <button @click="showParam($event, 666)">点我展示信息并传递参数</button><br/>
         <!-- 事件绑定，阻止默认事件, prevent为事件修饰符 -->
         <a href="http://www.baidu.com" @click.prevent="showA">点我展示信息并阻止默认事件</a><br/>
-        <!-- 事件绑定，阻止时间冒泡，使用stop事件修饰符, 事件修饰符可连写 -->
+        <!-- 事件绑定，阻止事件冒泡，使用stop事件修饰符, 事件修饰符可连写 -->
         <div>
             <button @click.stop="showButton">点我展示信息并阻止时间冒泡</button>
         </div>
