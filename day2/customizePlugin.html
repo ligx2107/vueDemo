@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Plugin</title>
+    <script src="../js/vue.js"></script>
+    <!-- 引入自定义插件 -->
+    <script src="./plugin/pluginDemo.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h2 v-upper-text="name"></h2>
+        <h2 v-lower-text="name"></h2>
+    </div>
+
+    <script type="text/javascript">
+        // 关闭生产提醒
+        Vue.config.productionTip = false;
+        // 安装自定义插件
+        Vue.use(pluginDemo);
+
+        // 创建Vue实例
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name: 'Tom'
+            }
+        });
+
+        // 打印插件中为Vue自身增加的属性
+        console.log(Vue.projectName);
+
+        // 调用插件中为Vue增加的方法
+        Vue.showInfo();
+
+        // 调用插件中为Vue原型中增加的方法
+        console.log(vm.$random(2, 6));
+    </script>
+</body>
+</html>
