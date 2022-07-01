@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>non single file component</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        1. 创建组件
+        2. 注册组件，包括：全局注册和局部注册两种模式
+        3. 调用组件
+     -->
+    <div id="root">
+        <!-- 调用组件 -->
+        <Person />
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        /**
+         *  组件：包含页面局部功能的资源集合
+         *  Vue中组件分两种，单文件组件和非单文件组件
+         *      1. 单文件组件：一个文件即为一个组件，文件以 .vue 结尾
+         *      2. 非当文件组件：所有的组件都在一个文件中   
+         * 
+         *  定义组件：
+         *      1. 使用Vue.extend(options)创建一个组件
+         *      2. 组件的本质是一个构造函数，通过标签调用组件时，Vue会自动通过new创建组件实例
+         *      3. Vue.extend(options)中的options是一个配置对象，和new Vue时传递的配置对象类似，区别如下：
+         *          (1). 不能写el属性指定容器  ---  所有的组件实例最终要被一个Vue实例管理，Vue实例会指定el
+         *          (2). data属性值必须是一个函数  ---  确保多个组件实例的数据互不干扰
+         *          (3). 组件的模版结构要配置在template属性中，值为html字符串，且要用模版字符串，只有一个根标签
+         * */
+        const Info = Vue.extend({
+            data(){
+                return {
+                    name: 'Tom',
+                    age: 18
+                }
+            },
+            template: `
+                <div>
+                    <h2>姓名：{{name}}</h2>
+                    <h2>年龄：{{age}}</h2>
+                </div>
+            `
+        });
+        console.log(typeof Info); // function 证明Vue.extend所创建的组件实质是一个函数
+
+        // 全局注册组件
+        // Vue.component('Person', Info);
+
+        // 创建Vue实例
+        new Vue({
+            el: '#root',
+            // 局部注册组件
+            components: {
+                Person: Info
+            }
+        });
+    </script>
+</body>
+</html>
