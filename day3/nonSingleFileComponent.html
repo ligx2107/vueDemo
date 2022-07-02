@@ -28,6 +28,8 @@
          * 
          *  定义组件：
          *      1. 使用Vue.extend(options)创建一个组件
+         *          (1). Vue.extend返回值是VueComponent构造函数，组件实例就是VueComponent的实例
+         *          (2). VueComponent继承了Vue
          *      2. 组件的本质是一个构造函数，通过标签调用组件时，Vue会自动通过new创建组件实例
          *      3. Vue.extend(options)中的options是一个配置对象，和new Vue时传递的配置对象类似，区别如下：
          *          (1). 不能写el属性指定容器  ---  所有的组件实例最终要被一个Vue实例管理，Vue实例会指定el
